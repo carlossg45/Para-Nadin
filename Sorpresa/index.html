@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Nadin 💜</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at bottom, #2b1055, #000);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* TEXTO SUPERIOR */
+.top-left {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 14px;
+  color: #d0bfff;
+  z-index: 10;
+}
+
+/* CONTENEDOR CENTRAL */
+.center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CORAZÓN PIXELADO MORADO */
+.heart {
+  display: grid;
+  grid-template-columns: repeat(7, 22px);
+  gap: 4px;
+  margin-bottom: 25px;
+}
+
+.pixel {
+  width: 22px;
+  height: 22px;
+  background: #9b5de5;
+}
+
+.empty { background: transparent; }
+
+/* BOTÓN */
+button {
+  padding: 14px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #9b5de5;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.08); }
+
+/* SPOTIFY */
+#spotify {
+  display: none;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* TEXTOS FLOTANTES */
+.text {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #d0bfff;
+  animation: floatUp 4s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-150px); }
+}
+
+/* FUEGOS */
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #9b5de5;
+  border-radius: 50%;
+  animation: explode 1s linear forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+
+/* PROPUESTA */
+.propuesta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(43,16,85,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 20;
+  animation: aparecer 1s ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TEXTO SUPERIOR -->
+<div class="top-left">De parte de Carlos 💜</div>
+
+<div class="center">
+
+  <!-- CORAZÓN -->
+  <div class="heart">
+    <div class="empty"></div><div class="pixel"></div><div class="pixel"></div><div class="empty"></div><div class="pixel"></div><div class="pixel"></div><div class="empty"></div>
+    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+    <div class="empty"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="empty"></div>
+    <div class="empty"></div><div class="empty"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="empty"></div><div class="empty"></div>
+    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="pixel"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
+  </div>
+
+  <button onclick="mostrarAmor()">Toca aquí 💜</button>
+
+  <div id="spotify">
+    <iframe 
+      src="https://open.spotify.com/embed/track/4oAXfBdNH0qHr32w82E8dg"
+      width="100%" height="80" frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
+
+</div>
+
+<div id="propuesta" class="propuesta">
+  ¿Quieres casarte conmigo? 💍
+</div>
+
+<script>
+const mensajes = [
+  "Te amo Nadin 💜",
+  "Te amo mi niña",
+  "Recuérdate de mí",
+  "Siempre tú",
+  "Con amor 💜"
+];
+
+function mostrarAmor() {
+  document.getElementById("spotify").style.display = "block";
+
+  setInterval(crearTexto, 600);
+  setInterval(fuegos, 500);
+  setInterval(mostrarPropuesta, 5000);
+}
+
+function crearTexto() {
+  const text = document.createElement("div");
+  text.className = "text";
+  text.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
+  text.style.left = Math.random() * window.innerWidth + "px";
+  text.style.bottom = "0px";
+  document.body.appendChild(text);
+  setTimeout(() => text.remove(), 4000);
+}
+
+function fuegos() {
+  for (let i = 0; i < 10; i++) {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.left = Math.random() * window.innerWidth + "px";
+    spark.style.top = Math.random() * window.innerHeight + "px";
+    spark.style.setProperty("--x", (Math.random() * 200 - 100) + "px");
+    spark.style.setProperty("--y", (Math.random() * 200 - 100) + "px");
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1000);
+  }
+}
+
+function mostrarPropuesta() {
+  const p = document.getElementById("propuesta");
+  p.style.display = "flex";
+  setTimeout(() => p.style.display = "none", 2000);
+}
+</script>
+
+</body>
+</html>
